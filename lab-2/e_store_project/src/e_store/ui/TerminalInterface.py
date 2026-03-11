@@ -74,12 +74,13 @@ class TerminalInterface:
             print("Balance: " + str(customer.funds))
             if (isinstance(req_item, ForeignItem)):
                 print("NOTE: the purchase contains an additional 20% fee due to international shipment.")
-                item_c = 1.20 * req_item.price
-            else:
-                item_c = req_item.price
+            
+            promo_user = False
+            item_c = req_item.get_price()
             tot_c = req_qty * item_c
             if (isinstance(customer, PromotionalCustomer)):
                     tot_c = 0.95 * tot_c
+                    promo_user = True
                     print("Promotional client discount applied successfully!")
             print("Total cost: " + str(round(tot_c, 2)))
             print("Please confirm or cancel the current order. Y/N")
@@ -95,7 +96,7 @@ class TerminalInterface:
                     continue
                 customer.funds -= tot_c
                 for j in range(req_qty):
-                    self.store.sell_item(req_item)
+                    self.store.sell_item(req_item, promo_user)
                 print("Transaction completed successfully.")
 
             else:

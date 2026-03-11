@@ -12,5 +12,9 @@ class GenericItem(ABC):
         self.price = price
 
     @abstractmethod
+    def get_price(self) -> float:
+        pass
+
+    @abstractmethod
     def __str__(self) -> str:
         pass

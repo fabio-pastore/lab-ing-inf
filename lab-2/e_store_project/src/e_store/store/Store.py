@@ -11,20 +11,17 @@ class Store():
     def add_item(self, item: GenericItem):
         self.item_stock.add_item(item)
 
-    def sell_item(self, item: GenericItem):
+    def sell_item(self, item: GenericItem, is_promo_user: bool) -> None:
         self.item_stock.remove_item(item)
-        if (isinstance(item, ForeignItem)):
-            self.funds += (item.price + 0.2 * item.price)
+        if is_promo_user:
+            self.funds += 0.95 * item.get_price()
         else:
-            self.funds += item.price
+            self.funds += item.get_price()
 
     def show_items(self):
         print("<===================== STORE INVENTORY =====================>")
         for item in set(self.item_stock.item_list.keys()):
-            if isinstance(item, ForeignItem):
-                print("| ITEM: " + str(item) + " | PRICE: " + str(1.2 * item.price) + " | AVAILABLE_QUANTITY: " + str(self.item_stock.item_list[item]))
-            else:
-                print("| ITEM: " + str(item) + " | PRICE: " + str(item.price) + " | AVAILABLE_QUANTITY: " + str(self.item_stock.item_list[item]))
+            print("| ITEM: " + str(item) + " | PRICE: " + str(item.get_price()) + " | AVAILABLE_QUANTITY: " + str(self.item_stock.item_list[item]))
         print("<===========================================================>")
 
     def search_item(self, item_id: int) -> GenericItem:
