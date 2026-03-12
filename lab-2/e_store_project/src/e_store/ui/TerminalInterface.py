@@ -36,6 +36,31 @@ class TerminalInterface:
                 print("Successfully logged in. Welcome " + username + "!")
                 break
         return customer
+    
+    def validate_input(self, msg: str) -> int:
+        """
+        This function validates user input for the req_item and req_qty variables in start_app(). 
+
+        Args:
+            msg (str): the message to be displayed on input request.
+
+        Returns:
+            An integer value containing the validated user input. If -1 is returned, then the 'quit' command was received.
+        """
+        input_ok = False
+        user_input = None
+        while not input_ok: 
+            try:
+                print(msg)
+                user_input = input("$ store-manager ")
+                if (user_input.lower() == 'quit'):
+                    return -1
+                user_input = int(user_input)
+                input_ok = True
+            except ValueError:
+                print("Invalid value. Please try again.")
+                continue
+        return user_input 
 
     def start_app(self):
 
@@ -47,13 +72,11 @@ class TerminalInterface:
             print("Store balance: " + str(self.store.funds))
             self.store.show_items()
             print("Available balance: " + str(customer.funds))
-            print("Please insert ID of item to buy (or QUIT to exit the app).")
-            recv_input = input("$ store-manager ")
-            if (recv_input.lower() == "quit"):
+            item_id = self.validate_input("Please insert ID of item to buy (or QUIT to exit the app).")
+            if (item_id == -1):
                 print("Exiting process with exit code (0)")
                 break
 
-            item_id = int(recv_input)
             req_item = self.store.search_item(item_id)
             if req_item is None:
                 print("Could not find specified item. Please try again.")
@@ -63,8 +86,7 @@ class TerminalInterface:
                 print("The selected item is currently unavailable. Please try again later.")
                 continue
 
-            print("Please insert desired quantity.")
-            req_qty = int(input("$ store-manager "))
+            req_qty = self.validate_input("Please insert desired quantity.")
             if self.store.item_stock.item_list[req_item] < req_qty:
                 print("The store cannot satisfy the requested amount. Please try with a lower quantity or pick another item.")
                 continue
