@@ -1,0 +1,3 @@
+def count_spaces(string):
+    spaces = string.count(" ") # used to be string.split() ... 
+    return spaces
