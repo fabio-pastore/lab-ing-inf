@@ -114,6 +114,7 @@ def end_game() -> GameResetConfirmation:
     reset_game()
     return GameResetConfirmation(reset=True)
 
+# not actually used in the HTML server (for now)
 @app.get("/get_winning_number")
 def get_winning_number() -> WinningNumber:
     if not game_started:

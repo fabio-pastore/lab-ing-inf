@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guesser by Fabio</title>
+    <script>
+        function checkName() {
+            let name = document.getElementById("name");
+            if (!isNaN(name.value)) {
+                alert("Name cannot be a number!");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h2>Welcome to Number Guesser!</h2>
+    <form action="/start" method="post" onsubmit="return checkName()">
+        <label for="player_name">Your name:</label>
+        <input type="text" id="name" name="player_name" required>
+        <button type="submit">Start!</button>
+    </form>
+</body>
+</html>
