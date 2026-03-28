@@ -1,4 +1,5 @@
-import requests # type: ignore
+import requests 
+from requests import Response
 
 class TerminalInterface:
 
@@ -15,24 +16,27 @@ class TerminalInterface:
             if "application/json" in content_type:
                 try:
                     data: dict = recv_data.json()
-                except ValueError:
+                except (ValueError, requests.exceptions.JSONDecodeError):
                     print("$ store-manager: response does not contain a valid JSON!")
                 
             else:
-                print("$ store-manager : response is not JSON")
+                print("$ store-manager: response is not JSON")
                 print("Content-Type: " + str(content_type))
         
         else:
-            print("$ store-manager: [HTTP_ERROR] > " + str(recv_data.status_code) + ": " + recv_data.json().get("detail"))
+            if type(recv_data.json().get("detail")) is list:
+                print("$ store-manager: [HTTP_ERROR] > " + str(recv_data.status_code) + ": " + str(recv_data.json().get("detail")[0].get("msg")))
+            else:
+                print("$ store-manager: [HTTP_ERROR] > " + str(recv_data.status_code) + ": " + str(recv_data.json().get("detail")))
 
         return data
 
     def get_validated_data(self, url) -> None | dict:
-        response: Response = requests.get(url) # type: ignore
+        response: Response = requests.get(url)
         return self.validate_aux(response)
 
     def post_data(self, url, payload) -> None | dict:
-        response: Response = requests.post(url, json=payload) # type: ignore
+        response: Response = requests.post(url, json=payload)
         return self.validate_aux(response)
         
     def get_inventory(self):
