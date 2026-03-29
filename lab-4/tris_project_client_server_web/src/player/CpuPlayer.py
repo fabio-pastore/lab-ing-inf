@@ -15,6 +15,10 @@ class CpuPlayer(Player):
     def increase_id_counter(cls) -> None:
         cls.UNIQUE_CPU_ID += 1
 
+    @classmethod
+    def reset_id_counter(cls) -> None:
+        cls.UNIQUE_CPU_ID = 0
+
     def make_move(self, game_board: Board, player_id: int) -> None:
         """
         Executes a move for the player during their turn.

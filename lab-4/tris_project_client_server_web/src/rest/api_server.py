@@ -89,6 +89,8 @@ def get_player_symbol(curr_player: Player) -> int | None: # NOTE: this will neve
 @app.post("/start")
 def start_game(player_list: PlayerList) -> GameStartConfirmation:
     global next_turn, game_board, ui, players, game_started
+    if not (game_started):
+        reset()
     if (game_started):
         raise HTTPException(status_code=400, detail="Game currently in progress.")
     rnd: int = random.randint(0, 1)
@@ -103,6 +105,7 @@ def start_game(player_list: PlayerList) -> GameStartConfirmation:
 
 @app.post("/make_move")
 def mark_board(move: MoveInfo) -> MoveResult:
+    global game_started
 
     if not (game_started):
         raise HTTPException(status_code=400, detail="No game is currently being played.")
@@ -135,7 +138,7 @@ def mark_board(move: MoveInfo) -> MoveResult:
     modify_player_turn()
 
     if (game_ended):
-        reset()
+       game_started = False 
 
     return MoveResult(game_ended=game_ended, player_win=has_won_player, winner=winner)
 
