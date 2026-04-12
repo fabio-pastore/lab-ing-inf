@@ -1,0 +1,11 @@
+services:
+  backend-numguessr:
+    build: ./rest
+    ports:
+      - "8000:8000"
+  frontend-numguessr:
+    build: ./htmlserv
+    ports:
+      - "8001:8001"
+    depends_on:
+      - backend-numguessr

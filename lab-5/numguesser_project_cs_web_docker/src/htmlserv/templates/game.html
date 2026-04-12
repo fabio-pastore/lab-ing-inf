@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guesser by Fabio</title>
+</head>
+<body>
+    I am thinking about a number. Can you guess it?<br>
+    <b>Hint:</b> it is between <b>{{lower}}</b> and <b>{{higher}}</b>...<br>
+    <form action="/play" method="post">
+        <label for="guess">Your guess:</label>
+        <input type="number" id="guess" name="guess" required>
+        <button type="submit">Submit guess</button><br>
+        To end the game, or to change your username press <a href="/">here</a>.
+   </form>
+   <span id="result_span">{{result if result else ""}}</span>
+   <span id="play_again_span" style="display: none;"><a href="/"><button>Play again</button></a></span>
+</body>
+<script>
+    let result_span = document.getElementById("result_span");
+    if (result_span.innerText === 'You win!' || result_span.innerText === `The match has already ended. Press the following button if you wish to play again!`) {
+        document.getElementById("play_again_span").style.display = 'inline';
+    }
+</script>
+</html>
