@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tris v-1.1 by Fabio</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/game_style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="00" class="cell">{{c00 if c00 else ''}}</div>
+        <div id="01" class="cell">{{c01 if c01 else ''}}</div>
+        <div id="02" class="cell">{{c02 if c02 else ''}}</div>
+        <div id="10" class="cell">{{c10 if c10 else ''}}</div>
+        <div id="11" class="cell">{{c11 if c11 else ''}}</div>
+        <div id="12" class="cell">{{c12 if c12 else ''}}</div>
+        <div id="20" class="cell">{{c20 if c20 else ''}}</div>
+        <div id="21" class="cell">{{c21 if c21 else ''}}</div>
+        <div id="22" class="cell">{{c22 if c22 else ''}}</div>
+    </div>
+    <br>
+    <div class="result-div">{{turn}}</div><br>
+    <div id="res" class="result-div">{{result}}</div><br>
+    <br>
+    <div id="restart" class="play-again">
+        <a href="/"><button>Play again</button></a>
+    </div>
+    <script src="static/js/game_script.js"></script>
+</body>
+</html>

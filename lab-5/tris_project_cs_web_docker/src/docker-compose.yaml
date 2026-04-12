@@ -1,0 +1,17 @@
+services:
+  backend-tris:
+    build: ./rest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./board:/app/board
+      - ./ui:/app/ui
+  frontend-tris:
+    build: ./htmlserv
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./board:/app/board
+      - ./ui:/app/ui
+    depends_on:
+      - backend-tris

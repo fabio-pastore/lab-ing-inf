@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/index_style.css">
+    <title>Tris v-1.1 by Fabio</title>
+</head>
+<body>
+  <div><h2>Welcome to Tris! (v-1.1)</h2></div>
+  <hr>
+  <div>
+    <form method='post' action="/play">
+        <label for="p">Please insert your name:</label>
+        <input type="text" name="player" id="p" required><br>
+        <br>
+        <div>
+            Expert CPU <input type="checkbox" name="hard_mode">
+        </div>
+        <br>
+        <div>
+            <button type="submit">Play</button> <button type="reset">Reset</button>
+        </div>
+    </form>
+  </div>
+</body>
+</html>
